@@ -200,67 +200,25 @@
     margin:0 0 28px;
   }
 
-  /* ---------- Form ---------- */
-  form{ display:grid; gap:14px; }
-
-  .field{
-    display:grid;
-    gap:6px;
+  /* ---------- Brevo iframe ---------- */
+  .brevo-wrap{
+    margin-top:4px;
   }
-  .field label{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-  }
-  .field input{
-    font-family:var(--body);
-    font-size:1rem;
-    padding:13px 14px;
-    border:1.5px solid rgba(28,26,20,0.22);
-    border-radius:4px;
-    background:#FBF8F0;
-    color:var(--ink);
-    outline:none;
-    transition:border-color .15s ease, box-shadow .15s ease;
-  }
-  .field input:focus{
-    border-color:var(--leaf-dark);
-    box-shadow:0 0 0 3px rgba(63,107,65,0.18);
-  }
-
-  button.cta{
-    margin-top:6px;
-    font-family:var(--body);
-    font-weight:700;
-    font-size:1.02rem;
-    color:var(--cream-text);
-    background:var(--leaf-dark);
+  .brevo-wrap iframe{
+    display:block;
+    width:100%;
+    max-width:100%;
     border:none;
-    padding:16px 20px;
     border-radius:4px;
-    cursor:pointer;
-    transition:transform .12s ease, background .15s ease;
-    box-shadow:0 4px 0 #2C4C2D;
+    /* hauteur auto-ajustée via JS */
+    min-height:280px;
   }
-  button.cta:hover{ background:#375E39; }
-  button.cta:active{ transform:translateY(3px); box-shadow:0 1px 0 #2C4C2D; }
 
   .reassure{
     text-align:center;
     font-size:0.82rem;
     color:var(--ink-soft);
     margin-top:14px;
-  }
-
-  #success-msg{
-    display:none;
-    text-align:center;
-    padding:18px 10px 4px;
-    font-family:var(--display);
-    font-size:1.15rem;
-    color:var(--leaf-dark);
   }
 
   /* ---------- Footer ---------- */
@@ -331,31 +289,14 @@
 
       <hr class="divider">
 
-      <!--
-        ============================================================
-        INTÉGRATION BREVO — à faire avant mise en ligne :
-        1. Dans Brevo : Contacts > Formulaires > Créer un formulaire
-           (fonctionnalité gratuite, différente des "Landing pages" payantes)
-        2. Brevo te donne une action d'URL du type :
-           https://xxxxxx.sibforms.com/serve/xxxxxxxxx
-        3. Remplace la valeur de l'attribut "action" ci-dessous par cette URL.
-        4. Les attributs "name" des inputs doivent correspondre aux noms
-           de champs Brevo (souvent PRENOM et EMAIL, à vérifier dans Brevo).
-        ============================================================
-      -->
-      <form id="guide-form" action="https://18cffb7a.sibforms.com/serve/MUIFAH6w85WRdCP29XnXWXV_yCCO5gZroxDa9-NrpIdT9d2TIS6UohD9ELdkenIV6J7gDvc-qTGFofHfsj8iQsOsiVr3J1JOgixjZyVvyYEio5yydF0_v0t9ZxhNDZRFjmSqMoFa9x9WsFp0oWCPYURWV7c6US0M2_zRAID8c72sGbY_Hc-hU4_GLVW0YaVbVIeNa8ldLEWHyFMczg==" method="POST" target="_blank">
-        <div class="field">
-          <label for="prenom">Ton prénom</label>
-          <input type="text" id="prenom" name="PRENOM" placeholder="Marie" required>
-        </div>
-        <div class="field">
-          <label for="email">Ton email</label>
-          <input type="email" id="email" name="EMAIL" placeholder="marie@exemple.com" required>
-        </div>
-        <button type="submit" class="cta">👉 Je reçois mon guide gratuit</button>
-      </form>
-
-      <p id="success-msg">Merci ! Regarde ton email, ton guide arrive dans 2 min 🌱</p>
+      <div class="brevo-wrap">
+        <iframe
+          id="brevo-form"
+          src="https://18cffb7a.sibforms.com/v2/serve/MUIFAH6w85WRdCP29XnXWXV_yCCO5gZroxDa9-NrpIdT9d2TIS6UohD9ELdkenIV6J7gDvc-qTGFofHfsj8iQsOsiVr3J1JOgixjZyVvyYEio5yydF0_v0t9ZxhNDZRFjmSqMoFa9x9WsFp0oWCPYURWV7c6US0M2_zRAID8c72sGbY_Hc-hU4_GLVW0YaVbVIeNa8ldLEWHyFMczg=="
+          scrolling="auto"
+          allowfullscreen
+        ></iframe>
+      </div>
 
       <p class="reassure">Pas de spam. Juste des conseils potager, comme sur mes réseaux.</p>
     </section>
@@ -368,14 +309,12 @@
 </div>
 
 <script>
-  // Affiche le message de succès après soumission (le formulaire s'ouvre
-  // dans un nouvel onglet vers Brevo, donc on affiche un message local ici).
-  document.getElementById('guide-form').addEventListener('submit', function(){
-    var form = this;
-    setTimeout(function(){
-      form.style.display = 'none';
-      document.getElementById('success-msg').style.display = 'block';
-    }, 400);
+  // Auto-resize the Brevo iframe when it sends a resize message
+  window.addEventListener('message', function(e){
+    if(e.data && e.data.type === 'sib_form_resize'){
+      var iframe = document.getElementById('brevo-form');
+      if(iframe) iframe.style.height = (e.data.height + 20) + 'px';
+    }
   });
 </script>
 
