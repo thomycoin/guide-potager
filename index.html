@@ -220,6 +220,15 @@
     margin-top:14px;
   }
 
+  .consent{
+    text-align:center;
+    font-size:0.74rem;
+    color:#8C8770;
+    margin-top:10px;
+    line-height:1.5;
+  }
+  .consent a{ color:var(--leaf-dark); }
+
   /* ---------- Footer ---------- */
   footer{
     text-align:center;
@@ -230,6 +239,14 @@
   footer .handle{
     font-family:var(--mono);
     color:var(--leaf);
+  }
+  footer .legal-links{
+    margin-top:10px;
+    font-size:0.78rem;
+  }
+  footer .legal-links a{
+    color:#8C9482;
+    text-decoration:underline;
   }
 
   @media (prefers-reduced-motion: no-preference){
@@ -298,11 +315,22 @@
       </div>
 
       <p class="reassure">Pas de spam. Juste des conseils potager, comme sur mes réseaux.</p>
+      <p class="consent">
+        En t'inscrivant, tu acceptes de recevoir le guide et d'éventuels conseils par email.
+        Tes données sont traitées par Brevo, notre prestataire d'emailing — voir notre
+        <a href="./politique-confidentialite.html">politique de confidentialité</a>.
+        Désinscription possible à tout moment.
+      </p>
     </section>
   </main>
 
   <footer>
     <p>Un guide écrit par <span class="handle">@lepotagerdethomy</span></p>
+    <p class="legal-links">
+      <a href="./mentions-legales.html">Mentions légales</a>
+      &nbsp;·&nbsp;
+      <a href="./politique-confidentialite.html">Politique de confidentialité</a>
+    </p>
   </footer>
 
 </div>
