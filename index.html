@@ -379,22 +379,9 @@
                   </label>
                 </div>
               </div>
-              <div style="padding: 8px 0;">
-                <div class="sib-captcha sib-form-block">
-                  <div class="form__entry entry_block">
-                    <div class="form__label-row">
-                      <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; color:#3c4858;">Formulaire sécurisé par reCAPTCHA</label>
-                      <script>
-                        function handleCaptchaResponse() {
-                          var event = new Event('captchaChange');
-                          document.getElementById('sib-captcha').dispatchEvent(event);
-                        }
-                      </script>
-                      <div class="g-recaptcha sib-visible-recaptcha" id="sib-captcha" data-sitekey="6LcXQ04tAAAAALFl86eNjCOMoWtTHEnQnwcBvyrG" data-callback="handleCaptchaResponse" style="direction:ltr"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <!-- Honeypot field (invisible, piège à bots) -->
+              <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off" />
+
               <div style="padding: 8px 0;">
                 <div class="sib-form-block" style="text-align: left">
                   <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-family:Futura, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#FFFFFF; background-color:#3f6b41; border-width:0px; border-radius:3px;" form="sib-form" type="submit">
@@ -454,4 +441,3 @@
 </script>
 
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-<script src="https://www.google.com/recaptcha/api.js?hl=fr"></script>
